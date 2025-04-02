@@ -1,5 +1,6 @@
 package com.plky.ocr.service.impl;
 
+import com.plky.ocr.exception.TesseractIntegrationException;
 import com.plky.ocr.service.TesseractOCRService;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.tess4j.Tesseract;
@@ -25,9 +26,8 @@ public class TesseractOCRServiceImpl implements TesseractOCRService {
         try (inputStream) {
             final BufferedImage image = ImageIO.read(inputStream);
             return tesseract.doOCR(image);
-        } catch (Exception e) {
-            log.error("A problem occurred extracting text - Message: {}",  e.getMessage());
+        } catch (final Exception e) {
+            throw new TesseractIntegrationException();
         }
-        return "OCR failed";
     }
 }

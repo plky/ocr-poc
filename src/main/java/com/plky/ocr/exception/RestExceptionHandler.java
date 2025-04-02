@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartException;
-import org.springframework.web.server.PayloadTooLargeException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Arrays;
 
@@ -25,6 +23,12 @@ public class RestExceptionHandler {
     public ResponseEntity<Object> exceptionHandler(final Exception ex) {
         logError(ex);
         return getErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An internal server error occurred");
+    }
+
+    @ExceptionHandler(TesseractIntegrationException.class)
+    public ResponseEntity<Object> exceptionHandler(final TesseractIntegrationException ex) {
+        logError(ex);
+        return getErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
 
     public void logError(final Exception ex) {
