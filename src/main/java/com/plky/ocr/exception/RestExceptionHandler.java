@@ -14,8 +14,7 @@ import java.util.Arrays;
 
 @Slf4j
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
+public class RestExceptionHandler {
     @ExceptionHandler(MultipartException.class)
     public  ResponseEntity<Object> handleMultipartException(final MultipartException ex) {
         logError(ex);
