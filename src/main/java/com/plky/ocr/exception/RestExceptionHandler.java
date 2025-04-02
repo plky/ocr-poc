@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
 
 import java.util.Arrays;
@@ -23,6 +24,12 @@ public class RestExceptionHandler {
     public ResponseEntity<Object> exceptionHandler(final Exception ex) {
         logError(ex);
         return getErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An internal server error occurred");
+    }
+
+    @ExceptionHandler(NotAuthorisedException.class)
+    public ResponseEntity<Object> notAuthorisedException(final NotAuthorisedException ex) {
+        logError(ex);
+        return getErrorResponse(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(TesseractIntegrationException.class)

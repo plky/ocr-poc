@@ -1,5 +1,6 @@
 package com.plky.ocr.controller;
 
+import com.plky.ocr.exception.NotAuthorisedException;
 import com.plky.ocr.security.TesseractOCRSecurityService;
 import com.plky.ocr.service.TesseractOCRService;
 import jakarta.validation.Valid;
@@ -35,7 +36,7 @@ public class OpticalCharacterRecognitionApi {
     ) throws Exception {
 
         throwIfFalse(
-            () -> new Exception("File is null"),
+            NotAuthorisedException::new,
             tesseractOCRSecurityService.canConvert(file)
         );
 
