@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 public class TesseractConfig {
     @Bean
     Tesseract tesseract() {
-        Tesseract tesseract = new Tesseract();
-        return tesseract;
+        return new Tesseract();
     }
 }
